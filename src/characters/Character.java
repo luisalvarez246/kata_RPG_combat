@@ -2,6 +2,7 @@ package characters;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Character
@@ -12,6 +13,7 @@ public class Character
     public int          strength;
     int                 selfHeal;
     int[]               position = {0, 0};
+    int                 range;
     String              msg;
     ArrayList<String>   faction = new ArrayList<>();
     SecureRandom        rand = new SecureRandom();
@@ -57,6 +59,17 @@ public class Character
         }
     }
 
+    public int isInRange(int[] enemyPosition)
+    {
+        int distance;
+
+        distance = Math.abs(enemyPosition[0] - position[0]) + Math.abs(enemyPosition[1] - position[1]);
+        if ((this instanceof Archer) && (distance == 1))
+            return (0);
+        if (distance <= range)
+            return (1);
+        return (0);
+    }
     public int calculateDamage(int enemyLevel)
     {
         if (enemyLevel - level >= 5)
@@ -82,6 +95,11 @@ public class Character
         if (isAlly(target.getFaction()))
         {
             msg = "Friendly fire will not be tolerated!";
+            return (0);
+        }
+        if (isInRange(target.position) == 0)
+        {
+            msg = "Cannot attack, enemy out of range";
             return (0);
         }
         return (1);
@@ -183,6 +201,11 @@ public class Character
     public int getSelfHeal()
     {
         return (selfHeal);
+    }
+
+    public int getRange()
+    {
+        return (range);
     }
 
     public void setStrength(int setValue)

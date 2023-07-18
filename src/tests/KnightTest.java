@@ -16,15 +16,15 @@ class KnightTest
     {
         //act, assert
         assertTrue(knight instanceof Knight);
-        assertEquals(2, knight.range);
+        assertEquals(2, knight.getRange());
     }
 
     @Test
     public void cannot_attack_out_of_range_targets()
     {
         //arrange
-        knight.setPosition(new int[]{0, 5});
-        thief.setPosition(new int[]{1, 7});
+        knight.setPosition(new int[]{2, 2});
+        thief.setPosition(new int[]{1, 4});
         //act, assert
         assertEquals("Cannot attack, enemy out of range", knight.dealDamage(thief));
     }
@@ -33,8 +33,8 @@ class KnightTest
     public void can_attack_in_range_targets()
     {
         //arrange
-        knight.setPosition(new int[]{0, 5});
-        thief.setPosition(new int[]{1, 6});
+        knight.setPosition(new int[]{2, 2});
+        thief.setPosition(new int[]{0, 2});
         //act, assert
         assertEquals("Enemy has lost " + knight.strength + " health points", knight.dealDamage(thief));
     }

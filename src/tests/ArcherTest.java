@@ -16,7 +16,7 @@ class ArcherTest
     {
         //act, assert
         assertTrue(archer instanceof Archer);
-        assertEquals(20, archer.range);
+        assertEquals(20, archer.getRange());
     }
 
     @Test
