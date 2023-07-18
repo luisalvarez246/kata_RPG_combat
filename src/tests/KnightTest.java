@@ -38,4 +38,15 @@ class KnightTest
         //act, assert
         assertEquals("Enemy has lost " + knight.strength + " health points", knight.dealDamage(thief));
     }
+    @Test
+    public void cannot_attack_a_destroyed_target()
+    {
+        //arrange
+        String  msg;
+        thief.setHealth(0);
+        //act
+        msg = knight.dealDamage(thief);
+        //assert
+        assertEquals("You better be careful with anthrax, leave the dead alone!", msg);
+    }
 }

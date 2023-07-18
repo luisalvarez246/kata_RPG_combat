@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 public class Things extends Character
 {
-    boolean destroyed;
     public Things(int setHealth)
     {
         health = setHealth;
         faction = null;
-        destroyed = false;
+        setDestroyed(false);
     }
 
     @Override
@@ -23,7 +22,7 @@ public class Things extends Character
         else
         {
             health = 0;
-            destroyed = true;
+            setDestroyed(true);
             return ("Object has been destroyed");
         }
     }
@@ -38,10 +37,5 @@ public class Things extends Character
     public String leaveFaction(String setValue)
     {
         return ("Things do not belong to any faction");
-    }
-
-    public boolean isDestroyed()
-    {
-        return (destroyed);
     }
 }

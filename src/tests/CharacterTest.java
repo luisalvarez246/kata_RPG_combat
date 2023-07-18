@@ -1,6 +1,7 @@
 package tests;
 
 import characters.Character;
+import characters.Things;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -9,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CharacterTest
 {
-    Character character = new Character();
+    Character   character = new Character();
+    Things      tree = new Things(2000);
 
     // Iteration 1
     @Test
@@ -277,5 +279,29 @@ class CharacterTest
         //assert
         assertEquals("Character recovered " + testSubjectA.getSelfHeal() + " HP", msg);
         assertEquals(600, targetHealth);
+    }
+
+    @Test
+    public void cannot_attack_a_dead_target()
+    {
+        //arrange
+        String  msg;
+        testSubjectB.setHealth(0);
+        //act
+        msg = testSubjectA.dealDamage(testSubjectB);
+        //assert
+        assertEquals("You better be careful with anthrax, leave the dead alone!", msg);
+    }
+
+    @Test
+    public void cannot_attack_a_destroyed_target()
+    {
+        //arrange
+        String  msg;
+        tree.setHealth(0);
+        //act
+        msg = testSubjectA.dealDamage(tree);
+        //assert
+        assertEquals("You should go see a shrink dude, leave it with the damned thing", msg);
     }
 }

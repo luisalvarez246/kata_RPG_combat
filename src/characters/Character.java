@@ -14,6 +14,7 @@ public class Character
     int                 selfHeal;
     int[]               position = {0, 0};
     int                 range;
+    private boolean     destroyed;
     String              msg;
     ArrayList<String>   faction = new ArrayList<>();
     SecureRandom        rand = new SecureRandom();
@@ -82,6 +83,21 @@ public class Character
 
     public int canDealDamage(Character target)
     {
+        if (!alive)
+        {
+            msg = "This is not a zombie's game, thus the dead cannot attack";
+            return (0);
+        }
+        if (!target.alive)
+        {
+            msg = "You better be careful with anthrax, leave the dead alone!";
+            return (0);
+        }
+        if ((target instanceof Things) && (target.destroyed))
+        {
+            msg = "You should go see a shrink dude, leave it with the damned thing";
+            return (0);
+        }
         if (this instanceof Things)
         {
             msg = "Things cannot deal damage!";
@@ -178,6 +194,14 @@ public class Character
         return (false);
     }
 
+    public void updateStatus()
+    {
+        if (health <= 0 && (this instanceof Things))
+            destroyed = true;
+        else if (health <= 0)
+            alive = false;
+    }
+
     public int getHealth()
     {
         return (health);
@@ -226,5 +250,17 @@ public class Character
     public void setHealth(int setValue)
     {
         health = setValue;
+        if (health <= 0)
+            updateStatus();
+    }
+
+    public void setDestroyed(boolean setValue)
+    {
+        destroyed = setValue;
+    }
+
+    public boolean isDestroyed()
+    {
+        return (destroyed);
     }
 }
