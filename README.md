@@ -2,6 +2,10 @@
 
 This is a fun kata that has the programmer building simple combat rules, as for a role-playing game (RPG). It is implemented as a sequence of iterations. The domain doesn't include a map or any other character skills apart from their ability to damage and heal one another.
 
+## TDD
+
+Used Junit5 for conducting TDD.
+
 # Instructions #
 
 1. Complete each iteration before reading the next one.
